@@ -120,10 +120,10 @@ const exibirMaratonas = async () => {
         maratonasSalvas = maratonasSalvasBackup;
         console.error('ERRO: ', error);
     }
-    exibirCategorias.style.display = 'flex';
     carregamaratona.style.display = 'none';
 
     maratonasSalvas.forEach((element, index) => {
+        exibirCategorias.style.display = 'flex';
         const containerItem = document.createElement('li');
 
         containerItem.innerHTML = `
