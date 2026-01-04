@@ -1,8 +1,0 @@
-__pycache__
-venv
-.gitattribute
-
-modeloDB
-scriptDataBase.txt
-
-.env
