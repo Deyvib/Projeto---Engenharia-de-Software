@@ -1,6 +1,6 @@
 # Gerenciador de maratona de programação
 
-Projeto desenvolvido em 2024 para a disciplina de Projeto Integrador do curso de Ciência da Computação. O projeto consiste em um sistema que ajudará na administração de uma maratona de programação na fase de "Mata-mata", nesse sistema, você cria sua conta, podendo editá-la ou excluí-la, e pode também adicionar os times que perticiparão da maratona, podendo editá-lo ou excluí-lo. Já nos casos das partidas entre os times, o administrador pode coordenar no sistema quem foi o ganhador, como uma forma de registro.
+Projeto desenvolvido em 2024 para a disciplina de Projeto Integrador do curso de Ciência da Computação. O projeto consiste em um sistema que ajudará na administração de uma maratona de programação na fase de "Mata-mata", nesse sistema, você cria sua conta, podendo editá-la ou excluí-la, e pode também adicionar os times que participarão da maratona, podendo editá-lo ou excluí-lo. Já nos casos das partidas entre os times, o administrador pode coordenar no sistema quem foi o ganhador, como uma forma de registro.
 
 ### Grupo: 
 
