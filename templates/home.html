@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/home.css">
+   <link rel="stylesheet" href="/static/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/select2.min.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/select2.min.js"></script>
+
+    <title>Home</title>
+</head>
+
+<body id="body">
+    <div id="toast" class="toast hidden">
+        <span class="toast-icon">!</span>
+        <p id="toast-message"></p>
+    </div>
+    <div id="mainContainer" class="container">
+        <div id="overlay" class="overlay"></div>
+        <header class="headerHome">
+            <div class="bubbles">
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </header>
+        <nav class="navbar">
+            <div class="vertical-bar"></div>
+            <div class="barra">
+                <div class="escudoTimePerfil">
+                    <img id="user-icon" width="100%">
+                </div>
+            </div>
+            <div class="vertical-bar"></div>
+            <img class="imagemLogoNav" src="static\img\LogoReduzida.png" width="2%" style="border-radius: 100%;">
+            <div id="verticalout" class="vertical-bar"></div>
+            <button id="criarMaisButton" class="criarMais">+ Criar Mais</button>
+            <div class="spacer"></div>
+            <div class="vertical-bar" style="margin-left: 10px;"></div>
+            <div class="limite">
+                <button id="contaOpcoes" class="contaManipular" style="margin-left: 3%;">Conta <i id="toggleIcon"
+                        class="fas fa-chevron-right" style="color: rgb(73, 73, 244)"></i></button>
+            </div>
+        </nav>
+        <div class="containerOpcoes">
+            <div class="spacer"></div>
+            <div id="OpcoesExpandidas" class="OpcoesExpandidas">
+                <button class="contaManipular" id="editarContaAbrir">Editar Conta</button>
+                <button class="contaManipular" id="logout">Sair</button>
+            </div>
+        </div>
+
+        <div id="edicaoConta" class="edicaoConta">
+            <button id="fecharEdicaoConta" class="fechar">X</button>
+            <form id="form-manipular-conta" method="post" action="{{ url_for('rotas.update_user') }}"
+                enctype="multipart/form-data">
+                <div class="containerPerfilContaManipular">
+                    <div class="containerArredondado" id="containerArredondadoEdicao" style="margin-left: 10px;">
+                        <img id="imagemAtualizar" class="imagemAtualizar" src="static\img\InitProfile.png" alt=""
+                            width="100%">
+                        <input type="file" name="iconPerfil" id="inputImagem" class="file-input" accept="image/*">
+                        <img id="svgAtualizar" src="static/img/atualizarFoto.svg" alt="Atualizar" class="svg-icon">
+                    </div>
+                </div>
+                <div class="camposManipularConta">
+                    <label for="Nome">Nome</label>
+                    <input id="usernameUpdate" name="Nome" type="text" required>
+                    <label for="Email">Email</label>
+                    <input id="emailUpdate" name="Email" type="text" required>
+                    <label for="Senha">Senha</label>
+                    <div style="width: 73%; display: flex;" class="divsenha">
+                        <input id="newPassword" name="Senha" type="password" class="inputsenha" autocomplete="new-password"
+                            style="width: 100%;" required>
+                        <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenha()" style="right: 10px;"></i>
+                    </div>
+                    <div id="containerbut" class="containerBotoes">
+                        <button id="btn-edit-user" class="ConfirmarCriacao" type="submit" style="width: 40%;">Atualizar</button>
+                        <button id="btn-del-user" class="ConfirmarCriacao"
+                            style="background-color: white;color:red;border-color:red; width: 40%;" type="submit">Excluir</button>
+                    </div>
+                <div id="loadconta" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="criacao" class="criacao">
+            <button id="fecharCriacao" class="fechar">X</button>
+            <div class="categorias menuCriar">
+                <div id="containerBotaoMaratonasCreation" class="containerBotao selecionarCriar">
+                    <button id="maratonasCreation">Maratonas</button>
+                    <hr id="underlineCreation"
+                        style="position: relative;margin-top: 0;margin-bottom: 0px;width: 100%;border: none;height: 3px; bottom:3px;"
+                        class="horizontal-bar selectCreation">
+                </div>
+            </div>
+            <div id="criarMaratona" class="criarMaratona">
+                <form id="criar-maratona-form" class="criacoesForm" action="{{ url_for('rotas.create_marathon') }}"
+                    method="post">
+                    <label for="nomeMaratona">Nome da Maratona</label>
+                    <input name="nomeMaratona" type="text" placeholder="JavaCamp" required>
+                    <label for="Descricao">Descrição</label>
+                    <input name="Descricao" type="text" placeholder="Campeonato de java" required>
+                    <label for="qtdTimes">Quantidade de Times</label>
+                    <select class="selectBox" id="qtdTimes" name="qtdTimes" required>
+                        <option value="">Selecione a quantidade de times</option>
+                        <option value="2">2</option>
+                        <option value="4">4</option>
+                        <option value="8">8</option>
+                        <option value="16">16</option>
+                    </select>
+                    <label for="valor">Prêmio</label>
+                    <input type="text" id="valor" name="valor" placeholder="R$100,00" required>
+
+                    <button id="ConfirmarCriacao" class="ConfirmarCriacao" type="submit">Criar</button>
+                    <div id="criaload" class="loading" style="position: relative; display: none;">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="textTitulo">
+            <div class="animado">
+                CRIE E GERENCIE <span></span>
+            </div>
+            <hr style="margin-top: 0;" class="horizontal-bar">
+        </div>
+        <div class="categoriasMenu">
+            <div id="containerBotaoMaratonas" class="containerBotao">
+                <button id="maratonas">Maratonas</button>
+                <hr class="horizontal-bar" style="margin-top:0;margin-bottom: 0;width: 100%;height: 2px;">
+                <div id="listarMaratonas"></div>
+            </div>
+        </div>
+
+        <div class="filtrar">
+            <p>Filtrar Itens:</p>
+            <div class="divfiltro" style="position: relative;">
+                <input id="filter" type="text" placeholder="Buscar" style="width: 100%; padding-left: 35px;">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+        <ul id="ExibirCategorias" class="ExibirCategorias"></ul>
+                <div id="carregamaratona" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+            </div>
+    </div>
+    <div id="intoMaratona" class="IntoMaratona">
+        <div id="torneio-container" class="torneio-container">
+            <div id="containerCampeao" class="containerVencedor">
+                <img id="imagemCampeao" src="static\img\hackathon.png" alt="vencedor">
+                <p id="campAbv"></p>
+            </div>
+            <div id="loadingRodada" class="loading" style="position: relative; display: none; top: 30px;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <div id="rodadas" class="rodadas">
+                <!-- Rodadas e Partidas serão inseridas dinamicamente aqui -->
+            </div>
+        </div>
+
+    </div>
+
+    <div id="overlayIntoMaratona" class="overlay"></div>
+    <div id="edicaoMaratona" class="criacao">
+        <div class="categorias menuCriar">
+            <div id="containerBotaoTimesCreation" class="containerBotao selecionarCriar">
+                <button id="timesCreation">Editar Maratona</button>
+                <hr id="underlineCreation" style="margin-top: 0;margin-bottom: 0;width: 100%;"
+                    class="horizontal-bar selectCreation">
+            </div>
+        </div>
+        <div id="editarMaratona" class="criarMaratona">
+            <button id="fecharEdicaoMaratona" class="fechar">X</button>
+            <form id="editar-maratona-form" class="criacoesForm" action="{{ url_for('rotas.update_marathon') }}"
+                method="post" style="height: 90%;">
+                <label for="nomeMaratona">Nome da Maratona</label>
+                <input id="novoNomeMaratona" name="nomeMaratona" type="text" required>
+                <label for="Descricao">Descrição</label>
+                <input id="novaDescricaoMaratona" name="Descricao" type="text" required>
+                <label for="qtdTimes">Quantidade de Times</label>
+                <select class="selectBox" id="novaqtdTimes" name="qtdTimes" required disabled style="cursor: auto">
+                    <option value="">Selecione a quantidade de times</option>
+                    <option value="2">2</option>
+                    <option value="4">4</option>
+                    <option value="8">8</option>
+                    <option value="16">16</option>
+                </select>
+                <label for="valor">Prêmio</label>
+                <input id="novoPremioMaratona" type="text" name="valor" required>
+                <div id="buttoneditmaratona" class="containerButtonsEditionMaratona">
+                    <button id="ConfirmarEdicaoMaratona" class="ConfirmarCriacao" type="submit">Editar</button>
+                    <button id="ExcluirMaratona" class="ConfirmarCriacao"
+                        style="background-color: white;color: red;border-color:red;">Excluir</button>
+                </div>
+                <div id="editload" class="loading" style="position: relative; display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div id="criacaoTime" class="criacao">
+        <button id="fecharCriacaoTime" class="fechar">X</button>
+        <div class="categorias menuCriar">
+            <div id="containerBotaoTimesCreation" class="containerBotao selecionarCriar">
+                <button id="timesCreation">Criar Time</button>
+                <hr id="underlineCreation" style="margin-top: 0;margin-bottom: 0;width: 100%;"
+                    class="horizontal-bar selectCreation">
+            </div>
+        </div>
+        <div id="criarTime" class="criarMaratona" style="display: flex;">
+            <form id="criar-time-form" class="criacoesForm" action="{{ url_for('rotas.create_team') }}" method="post"
+                style="height: 90%;">
+                <label for="nomeTime">Nome do Time</label>
+                <input name="nomeTime" type="text" placeholder="ProgTodoDia" required>
+                <label for="Abreviacao">Abreviação</label>
+                <input name="Abreviacao" type="text" placeholder="PTD (máximo 3 letras)" maxlength="3" required>
+                <label for="escudoTime">Escudo do Time</label>
+                <label for="inputImagemTime" class="containerArredondado" id="containerArredondadoCriaTime"
+                    style="height: 16vh;width: 16vh; border: 3px solid rgba(51, 83, 133, 1);background-color:rgba(51, 83, 133, 0.8)">
+                    <img id="imagemAtualizarTime" src="static\img\escudoTime.png" alt="" class="imagemAtualizarTime"
+                        style="transition: filter 0.3s ease;">
+                    <img id="svgAtualizar" src="static/img/atualizarFoto.svg" alt="Atualizar" class="svg-icon"
+                        style="height: 35%; width: 35%;">
+                </label>
+                            <input type="file" name="escudoTime" id="inputImagemTime" class="file-input" accept="image/*"
+                        required>
+                <button id="ConfirmarCriacaoTime" class="ConfirmarCriacao" type="submit">Criar</button>
+                <div id="timeload" class="loading" style="position: relative; display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="sidebar" class="sidebar">
+        <div id="sidebarMaratona" class="sidebarMaratona" style="padding-top: 20px; overflow-x: hidden;">
+            <button class="buttonBackToHome" id="BackToHome">
+                <img src="static\img\volte.png" width="30%">
+            </button>
+
+            <h4 id="editorMaratonaButton">Editar Maratona</h4>
+            <h2>Times</h2>
+            <button id="initCreationTeam" class="initCreationTeam"
+                style="border: none;background: transparent;outline: none;cursor: pointer;">
+                <img class="imagemAddTime" src="static\img\adicionar.png" width="30%">
+            </button>
+            <button id="chaveamento"
+                style="margin-top: 20px; border-radius: 10px; padding: 8px; font-size: 16px; color: white; width: 90%;">
+                <span class="icon" style="align-self: center"><i class="bi bi-key-fill"></i></span>
+                <span class="text">Chaveamento</span>
+
+            </button>
+                <div id="loadchave" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            <div class="filtrar filtroTime"
+                style="width: 90%; background-color:rgb(73, 73, 244); margin-top: 25px;font-size: 18px; gap: 4px; text-align: center;">
+                <p style="margin-left:5px;  white-space: nowrap;">Filtrar:</p>
+                <input id="filterTime" type="text" placeholder="Buscar" class="inputFiltro"
+                    style="margin-right: 10px; margin-left: 10px; padding: 8px; font-size: 14px; background-color: rgb(126,126,248)"
+                    required>
+            </div>
+            <div id="loadingTimes" class="loading" style="display: none;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <ul id="containerExibirTimes" class="ulTimes" style="width: 100%; display: flex; align-items: center; justify-content: 
+        center; flex-direction: column; padding: 0; margin: 0; list-style-type: none; margin-top: 20px;">
+            </ul>
+        </div>
+        <div id=sidebarTime class="sidebarTime" style="padding-top: 20px;">
+            <button class="buttonBackToHome" id="BackToMaratona">
+                <img src="static\img\volte.png" width="30%">
+            </button>
+            <p style="margin: 0px; margin-top: 20px;">Nome do time:</p>
+            <h3 id="nameTime" style="margin-bottom: 20px; margin-top: 0px;">Nome do time</h3>
+            <p style="margin: 0px;">Abreviação:</p>
+            <h3 id="abrev" style="margin: 0px;">Abv Time</h3>
+            <div class="containerArredondado dentroTime" style="cursor: default;">
+                <img id="imagemTime" class="imagemAtualizarTime exclusivo" alt="">
+
+            </div>
+            <h4 id="editorTimeButton">Editar Time</h4>
+            <h3 style=" word-break: break-word;">Desenvolvedores</h3>
+            <ul id="containerExibirCompetidores" style="width: 100%; display: flex; align-items: center; justify-content: 
+        center; padding: 0; margin: 0; list-style-type: none; margin-bottom: 20px;">
+            </ul>
+            <div id="loadingDev" class="loading" style="display: none;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="criarPartida" class="criacao">
+        <button id="fecharCriacaoPartida" class="fechar">X</button>
+        <div class="categorias menuCriar" style="margin-bottom: 30px;">
+            <div id="containerBotaoPartidaCreate" class="containerBotao selecionarCriar">
+                <button id="timesEditar">Definir Partida</button>
+                <hr id="underlineCreation" style="margin-top: 0;margin-bottom: 0;width: 100%;"
+                    class="horizontal-bar selectCreation">
+            </div>
+        </div>
+        <div id="criarPartidaCampos" class="criarMaratona" style="display: flex;">
+            <form id="criar-partida-form" class="criacoesForm" action="" method="post" style="height: 90%;">
+                <label for="LocalPartida">Local da partida</label>
+                <input id="LocalPartida" name="LocalPartida" type="text" placeholder="UFC Campus Crateús">
+                <label for="DataPartida">Data da partida</label>
+                <input id="DataPartida" type="date" name="DataPartida">
+                <label for="VencedorPartida">Vencedor</label>
+                <select name="VencedorPartida" id="TimeVencedor"></select>
+                <div class="containerButtonsEditionMaratona">
+                    <button id="ConfirmarCriacaoPartida" class="ConfirmarCriacao" type="button">Atualizar</button>
+                <div id="loadpartida" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="criacaoParticipante" class="criacao criarParticipante" style="background-color: transparent;z-index: 38;box-shadow: 0px 0px 0px;border: none;">
+        <div id="criarParticipante" class="criarMaratona">
+            <form id="criar-particiamente-form" class="criacoesForm" action="" method="post">
+                <h1 style="color: white;" class="tituloDesenvolvedor">Inscrever Desenvolvedor</h1>
+                <label for="nomeParticipante">Nome do Dev</label>
+                <input name="nomeParticipante" type="text" placeholder="João Alves" required>
+                <button id="ConfirmarCriacaoParticipante" class="ConfirmarCriacao inscrito" type="submit"
+                    style="font-size: 21px;     word-break: break-word;">Inscrever</button>
+                <div id="loadparticipa" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="EditarTime" class="criacao">
+        <button id="fecharEdicaoTime" class="fechar">X</button>
+        <div class="categorias menuCriar" style="margin-bottom: 30px;">
+            <div id="containerBotaoTimesUpdate" class="containerBotao selecionarCriar">
+                <button id="timesEditar">Editar Time</button>
+                <hr id="underlineCreation" style="margin-top: 0;margin-bottom: 0;width: 100%;"
+                    class="horizontal-bar selectCreation">
+            </div>
+        </div>
+        <div id="editarTime" class="criarMaratona" style="display: flex;">
+            <form id="editar-time-form" class="criacoesForm" action="" method="post" style="height: 90%;">
+                <label for="nomeTimeEditar">Nome do Time</label>
+                <input id="nomeTimeEditar" name="nomeTimeEditar" type="text" required>
+                <label for="AbreviacaoEditar">Abreviação</label>
+                <input id="AbreviacaoEditar" name="AbreviacaoEditar" type="text" maxlength="3" required>
+                <label for="escudoTimeEditar">Escudo do Time</label>
+                <div class="containerArredondado" id="containerArredondadoEditaTime"
+                    style="height: 16vh;width: 16vh; border: 3px solid rgba(51, 83, 133, 1);background-color:rgba(51, 83, 133, 0.8);">
+                    <img id="imagemAtualizarTimeEdicao" class="imagemAtualizarTime" alt="">
+                    <input type="file" name="escudoTimeEditar" id="inputImagemTimeEditar" class="file-input"
+                        accept="image/*" required>
+                    <img id="svgAtualizar" src="static/img/atualizarFoto.svg" alt="Atualizar" class="svg-icon"
+                        >
+                </div>
+                <div id="divbut" class="containerButtonsEditionMaratona">
+                    <button id="ConfirmarEdicaoTime" class="ConfirmarCriacao" type="submit">Editar</button>
+                    <button id="ExcluirTime" class="ConfirmarCriacao"
+                        style="background-color: white;color: red;border-color:red;">Excluir</button>
+                </div>
+                <div id="timeeditload" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="static\js\homePage\home.js"></script>
+</body>
+
+</html>
