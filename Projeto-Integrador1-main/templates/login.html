@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="static\css\login.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <div id="container" class="container">
+        <div id="side" class="side">
+            <img src="static\img\OIG2.png" alt="" width="100%">
+        </div>
+        <div id="formularioCampos" class="login-form">
+            <form id="campos" action="{{ url_for('rotas.submit') }}" method="POST">
+                <div class="apresentacao">
+                    <img src="static\img\codigo.png" width="15%">
+                    <h1 id="TextAcao">Acesse sua conta</h1>
+                    <p class="titulo">e tenha controle sobre sua maratona de programação</p>
+                </div>
+                <label for="usuario">Email</label>
+                <input id="usuario" type="email" name="email" placeholder="mail@abc.com"><br>
+                <label for="senha">Senha</label>
+                <div style=" display: flex; position: relative;" class="divsenha">
+                <input id="senha" type="password" name="senha" placeholder="**********">
+                <i class="bi bi-eye-fill" id="btn-senha" onclick="mostrarSenha()"></i>
+            </div>
+                <div class="mensagens">
+                    <a class="recuperaSenha" href="">Esqueceu sua senha?</a>
+                    <a class="textLogin" id="textLogin"></a>
+                </div>
+                <button id="entrar" type="submit">Login</button>
+                <div id="loadlogin" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </form>
+            <div id="naoTemConta" class="cadastro">
+                <p>Não tem conta? |
+                    <a id="criarConta"> Criar conta</a>
+                </p>
+            </div>
+
+            <form class="cadastroForm" id="cadastro-form" action="{{ url_for('rotas.create_user') }}" method="POST">
+                <div class="apresentacao">
+                    <img src="static\img\codigo.png" width="15%">
+                    <h1>Cadastre-se</h1>
+                </div>
+                <label for="nomeCriar">Nome</label>
+                <input id="nomeCriar" type="text" name="novoNome" placeholder="João Rodrigues Lacerda"><br>
+                <label for="usuarioCriar">Email</label>
+                <input id="usuarioCriar" type="email" name="novoEmail" placeholder="mail@abc.com"><br>
+                <label for="senhaCriar">Senha</label>
+                <div style=" display: flex; position: relative;" class="divsenha">
+                <input id="senhaCriar" type="password" style="width: 100%;" name="novaSenha" placeholder="**********"><br>
+                <i class="bi bi-eye-fill visualizarSenha" id="btn-senha" onclick="mostrarSenhaCriar()"></i>
+            </div>
+                <p style="margin-top: 0;" id="textSigin" class="textLogin"></p>
+                <button id="botaoCadastrar" type="submit">Cadastrar</button>
+                <div id="loadcadastro" class="loading" style="display: none;">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </form>
+            <div id="jaTemConta" class="cadastro criacao">
+                <p>Já tem uma conta? |
+                    <a id="logar"> Entrar</a>
+                </p>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="static\js\login\login.js"></script>
+</body>
+
+</html>
