@@ -20,7 +20,7 @@ MySQL
 
 ### Tela Principal: 
 
-<img src="static/img/Captura de tela de 2024-10-08 11-09-00.png" alt="Tela principal"></img>
+<img src="static/img/Cap.png" alt="Tela principal"></img>
 
 
 
